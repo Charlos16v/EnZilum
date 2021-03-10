@@ -74,11 +74,6 @@ public class TokenContract {
         return balances;
     }
 
-    // Method encharged of add a owner if not exists to the balances HashMap
-    public void addOwner(PublicKey pk, double totalSupply) {
-        getBalances().putIfAbsent(pk, totalSupply);
-    }
-
     // Method toString Overrided
     @Override
     public String toString() {
@@ -88,4 +83,18 @@ public class TokenContract {
                 "Supply Stock: " + getTotalSupply() + '\n';
     }
 
+    // Method encharged of add a owner if not exists to the balances HashMap
+    public void addOwner(PublicKey pk, double totalSupply) {
+        getBalances().putIfAbsent(pk, totalSupply);
+    }
+
+    // Method encharged to return the number of owners in balances.
+    public int numOwners() {
+        return getBalances().keySet().size();
+    }
+
+    // Method encharged to return the value of the introduced key, if it hasn't a value return 0d.
+    public double balanceOf(PublicKey pk) {
+        return getBalances().getOrDefault(pk, 0d);
+    }
 }
