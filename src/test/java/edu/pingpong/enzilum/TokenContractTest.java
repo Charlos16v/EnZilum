@@ -19,6 +19,7 @@ public class TokenContractTest {
         tokenContract.setSymbol("USD");
         tokenContract.setTotalSupply(100);
         tokenContract.setTokenPrice(5d);
+        tokenContract.addOwner(test.getPK(), tokenContract.getTotalSupply());
     }
 
     @Test
@@ -28,8 +29,17 @@ public class TokenContractTest {
 
     @Test
     public void addOwnerTest(){
-        tokenContract.addOwner(test.getPK(), tokenContract.getTotalSupply());
         assertTrue(tokenContract.getBalances().containsKey(test.getPK()));
         assertTrue(tokenContract.getBalances().containsValue(tokenContract.getTotalSupply()));
+    }
+
+    @Test
+    public void numOwnersTest(){
+        assertEquals(1, tokenContract.numOwners());
+    }
+
+    @Test
+    public void balanceOfTest(){
+        assertEquals(100.0, tokenContract.balanceOf(test.getPK()), 0.001);
     }
 }
