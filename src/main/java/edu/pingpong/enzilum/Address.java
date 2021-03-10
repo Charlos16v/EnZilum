@@ -54,7 +54,7 @@ public class Address {
 
     @Override
     public String toString(){
-        return "Dirección Pública: " + getPK().hashCode() + '\n' +
+        return "Public Address: " + getPK().hashCode() + '\n' +
                 "Balance: " + getBalance() + '\n';
     }
 }
