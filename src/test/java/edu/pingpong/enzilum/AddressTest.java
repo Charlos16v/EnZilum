@@ -7,16 +7,16 @@ import static org.junit.Assert.assertNotNull;
 
 public class AddressTest {
 
-    Address addres = null;
+    Address address = null;
 
     @Before
     public void setupAddress() {
-        addres = new Address();
-        addres.generateKeyPair();
+        address = new Address();
+        address.generateKeyPair();
     }
 
     @Test
     public void constructorTest() {
-        assertNotNull(addres);
+        assertNotNull(address);
     }
 }
