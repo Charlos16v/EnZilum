@@ -52,4 +52,10 @@ public class TokenContractTest {
         assertEquals(98, tokenContract.balanceOf(test.getPK()), 0.001);
         assertEquals(2, tokenContract.balanceOf(aguila.getPK()), 0.001);
     }
+
+    @Test
+    public void totalTokensSoldTest() {
+        tokenContract.transfer(aguila.getPK(), 69d);
+        assertEquals(69, tokenContract.totalTokensSold());
+    }
 }
