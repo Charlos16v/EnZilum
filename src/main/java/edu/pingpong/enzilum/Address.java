@@ -55,6 +55,10 @@ public class Address {
     @Override
     public String toString(){
         return "Public Address: " + getPK().hashCode() + '\n' +
-                "Balance: " + getBalance() + '\n';
+                "Balance: " + getBalance() + " " + getSYMBOL() +  '\n';
+    }
+
+    public void transferEZI(double enziniums) {
+        this.balance += enziniums;
     }
 }
