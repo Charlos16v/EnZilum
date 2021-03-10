@@ -1,28 +1,41 @@
 package edu.pingpong.enzilum;
 
 import java.security.PublicKey;
+import java.util.HashMap;
 
 public class TokenContract {
 
     // Attributes
-    public PublicKey owner = null;
+    private Address owner = null;
+    private PublicKey ownerPK = null;
     private String name = "";
     private String symbol = "";
-    private int totalSupply = 0;
+    private double totalSupply = 0;
     private double tokenPrice = 0.0d;
+
+    private final HashMap<PublicKey , Double> balances = new HashMap<>();
 
     // Constructor
     public TokenContract(Address owner) {
-        setOwner(owner.getPK());
+        setOwner(owner);
+        setOwnerPK(owner.getPK());
     }
 
     // Getters and setters
-    public PublicKey getOwner() {
+    public Address getOwner() {
         return owner;
     }
 
-    public void setOwner(PublicKey owner) {
+    public void setOwner(Address owner) {
         this.owner = owner;
+    }
+
+    public PublicKey getOwnerPK() {
+        return ownerPK;
+    }
+
+    public void setOwnerPK(PublicKey ownerPK) {
+        this.ownerPK = ownerPK;
     }
 
     public String getName() {
@@ -41,7 +54,7 @@ public class TokenContract {
         this.symbol = symbol;
     }
 
-    public int getTotalSupply() {
+    public double getTotalSupply() {
         return totalSupply;
     }
 
@@ -57,11 +70,22 @@ public class TokenContract {
         this.tokenPrice = tokenPrice;
     }
 
+    public HashMap<PublicKey, Double> getBalances() {
+        return balances;
+    }
+
+    // Method encharged of add a owner if not exists to the balances HashMap
+    public void addOwner(PublicKey pk, double totalSupply) {
+        getBalances().putIfAbsent(pk, totalSupply);
+    }
+
     // Method toString Overrided
     @Override
     public String toString() {
-        return "Token Name: " + getName() + '\n' +
+        return "Owner PublicKey: " + getOwnerPK().hashCode() + '\n' +
+                "Token Name: " + getName() + '\n' +
                 "Token SYMBOL: " + getSymbol() + '\n' +
-                "Supply Stock: " + getTotalSupply() + 'n';
+                "Supply Stock: " + getTotalSupply() + '\n';
     }
+
 }
