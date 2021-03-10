@@ -9,6 +9,7 @@ public class TokenContractTest {
 
     TokenContract tokenContract = null;
     Address test = null;
+    Address aguila = null;
 
     @Before
     public void setupTokenContract() {
@@ -20,6 +21,8 @@ public class TokenContractTest {
         tokenContract.setTotalSupply(100);
         tokenContract.setTokenPrice(5d);
         tokenContract.addOwner(test.getPK(), tokenContract.getTotalSupply());
+        aguila = new Address();
+        aguila.generateKeyPair();
     }
 
     @Test
@@ -41,5 +44,12 @@ public class TokenContractTest {
     @Test
     public void balanceOfTest(){
         assertEquals(100.0, tokenContract.balanceOf(test.getPK()), 0.001);
+    }
+
+    @Test
+    public void transferTest() {
+        tokenContract.transfer(aguila.getPK(), 2d);
+        assertEquals(98, tokenContract.balanceOf(test.getPK()), 0.001);
+        assertEquals(2, tokenContract.balanceOf(aguila.getPK()), 0.001);
     }
 }
