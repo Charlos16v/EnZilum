@@ -15,7 +15,7 @@ public class TokenContract {
     private Double tokenPrice = 0.0d;
     private Double totalTokenSold = 0.0d;
 
-    private final Map<PublicKey , Double> balances = new HashMap<>();
+    private final Map<PublicKey, Double> balances = new HashMap<>();
 
     // Constructor
     public TokenContract(Address owner) {
@@ -110,13 +110,13 @@ public class TokenContract {
 
     // Method require, mocking require of Solidity.
     private void require(Boolean holds) throws Exception {
-        if (! holds) {
-           throw new Exception();
+        if (!holds) {
+            throw new Exception();
         }
     }
 
     // Method in charge of sending tokends from the owner.
-    public void transfer(PublicKey recipient, Double quantity){
+    public void transfer(PublicKey recipient, Double quantity) {
         try {
             require(balanceOf(getOwnerPK()) >= quantity); // Check
             getBalances().compute(getOwnerPK(), (pk, tokens) -> tokens - quantity); // We subtract tokens from the owner.
@@ -127,7 +127,7 @@ public class TokenContract {
     }
 
     // Method in charge of sending tokens between 2 public keys.
-    public void transfer(PublicKey sender, PublicKey recipient, Double quantity){
+    public void transfer(PublicKey sender, PublicKey recipient, Double quantity) {
         try {
             require(balanceOf(sender) >= quantity); // Check
             getBalances().put(sender, balanceOf(sender) - quantity); // We subtract tokens from the owner.
@@ -138,10 +138,10 @@ public class TokenContract {
     }
 
     // Method encharged of print all the owners of tokens, less the owner of the contract.
-    public void owners(){
+    public void owners() {
         getBalances().keySet().forEach(
                 (key) -> {
-                    if (!key.equals(getOwnerPK())){
+                    if (!key.equals(getOwnerPK())) {
                         System.out.println("Owner: " + key.hashCode()
                                 + " " + getBalances().get(key) + " "
                                 + getSymbol());
@@ -151,8 +151,8 @@ public class TokenContract {
     }
 
     // Method encharged to return the number of tokens solded.
-    public int totalTokensSold(){
-        getBalances().values().forEach((tokens) -> setTotalTokenSold( getTotalTokenSold() + tokens ));
+    public int totalTokensSold() {
+        getBalances().values().forEach((tokens) -> setTotalTokenSold(getTotalTokenSold() + tokens));
         setTotalTokenSold(getTotalTokenSold() - balanceOf(getOwnerPK()));
         return getTotalTokenSold().intValue();
     }
@@ -163,7 +163,7 @@ public class TokenContract {
             Double units = Math.floor(enziniums / tokenPrice);
             transfer(recipient, units);
             getOwner().transferEZI(enziniums);
-            } catch (Exception e) {
+        } catch (Exception e) {
             // silently...
         }
     }

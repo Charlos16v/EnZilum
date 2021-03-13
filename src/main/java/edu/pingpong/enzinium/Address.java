@@ -13,7 +13,8 @@ public class Address {
     private final String SYMBOL = "EZI";
 
     // Constructor
-    public Address(){};
+    public Address() {
+    }
 
     // Getters & Setters
     public PublicKey getPK() {
@@ -53,9 +54,9 @@ public class Address {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Public Address: " + getPK().hashCode() + '\n' +
-                "Balance: " + getBalance() + " " + getSYMBOL() +  '\n';
+                "Balance: " + getBalance() + " " + getSYMBOL() + '\n';
     }
 
     public void transferEZI(double enziniums) {

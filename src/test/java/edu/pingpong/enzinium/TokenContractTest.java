@@ -31,18 +31,18 @@ public class TokenContractTest {
     }
 
     @Test
-    public void addOwnerTest(){
+    public void addOwnerTest() {
         assertTrue(tokenContract.getBalances().containsKey(test.getPK()));
         assertTrue(tokenContract.getBalances().containsValue(tokenContract.getTotalSupply()));
     }
 
     @Test
-    public void numOwnersTest(){
+    public void numOwnersTest() {
         assertEquals(1, tokenContract.numOwners());
     }
 
     @Test
-    public void balanceOfTest(){
+    public void balanceOfTest() {
         assertEquals(100.0, tokenContract.balanceOf(test.getPK()), 0.001);
     }
 
