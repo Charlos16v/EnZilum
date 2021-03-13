@@ -1,4 +1,4 @@
-package edu.pingpong.enzilum;
+package edu.pingpong.enzinium;
 
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -60,5 +60,12 @@ public class Address {
 
     public void transferEZI(double enziniums) {
         this.balance += enziniums;
+    }
+
+    public void send(TokenContract tokenContract, double enziniums) {
+        if (enziniums <= getBalance()) {
+            tokenContract.payable(getPK(), enziniums);
+            this.balance -= enziniums;
+        }
     }
 }

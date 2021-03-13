@@ -1,9 +1,9 @@
-package edu.pingpong.enzilum;
+package edu.pingpong.enzinium;
 
 /**
  * Contratos inteligentes con enZinium.
  * 
- * Rick va a organizar un concieto de Los Ricknillos
+ * Rick va a organizar un concierto de Los Ricknillos
  * y quiere poner a la venta 100 entradas en nuestra
  * plataforma enZinium.
  * Para ello va a utilizar un contrato inteligente 
@@ -35,7 +35,7 @@ public class App {
          * 
          * Utiliza el metodo hashCode() de PublicKey para 
          * mostrar la PublicKey en consola 
-         
+        */
         
         System.out.println("\n" + "Address de Rick" + "\n" + 
                                   "==============="        );
@@ -45,7 +45,7 @@ public class App {
          * Creamos una Address en nuestro sistema para Morty
          * y otra para Jen y visualizamos su direccion puvlica
          * y balance
-
+        */
         
         Address morty = new Address();
         morty.generateKeyPair();
@@ -83,7 +83,7 @@ public class App {
          * 
          * totalSupply()
          * @return el total de unidades de este token que actualmente existen.
-
+        */
 
         TokenContract ricknillos = new TokenContract(rick);
         ricknillos.setName("Ricknillos");
@@ -114,9 +114,9 @@ public class App {
          * añade el propietario inicial de todos los tokens de este contrato
          * @param PublicKey del propietario
          * @param cantidad de tokens que posee
+        */
 
-
-        ricknillos.addOwner(rick.getPK(), ricknillos.totalSupply());
+        ricknillos.addOwner(rick.getPK(), ricknillos.getTotalSupply());
         // verifica que Rick no se actualiza una vez que ya existe en el balance
         ricknillos.addOwner(rick.getPK(), 500d);
         
@@ -131,7 +131,7 @@ public class App {
          * @return cantidad de tokens que posee
          * Dada una direccion, devuelve su balance de tokens. Si no existe 
          * el propietario, devuelve cero.
-
+        */
         System.out.println("\n" + "Consulta de balances" + "\n" + 
                                   "===================="        );
 
@@ -140,12 +140,12 @@ public class App {
         System.out.println("Entradas de Rick: " 
                                 + ricknillos.balanceOf(rick.getPK()) 
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         System.out.println("Entradas de Morty: " 
                                 + ricknillos.balanceOf(morty.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         /**
          * Morty quiere comprarle 2 entradas a Rick
@@ -164,7 +164,7 @@ public class App {
          * require()
          * @param una condicion que ha de verificarse (ser cierta)
          * Lanza una EXCEPCION si no se cumple la condicion
-
+        */
 
         System.out.println("\n" + "Transferencia de entradas" + "\n" + 
                                   "========================="        );
@@ -174,12 +174,12 @@ public class App {
         System.out.println("Entradas de Rick: " 
                                 + ricknillos.balanceOf(rick.getPK()) 
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         System.out.println("Entradas de Morty: " 
                                 + ricknillos.balanceOf(morty.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         // verifica que require falla si no hay tokens suficientes en el balance de Rick
         ricknillos.transfer(morty.getPK(), 300d);
@@ -187,7 +187,7 @@ public class App {
         System.out.println("Rick no tiene 300 entradas => entradas de Morty: " 
                                 + ricknillos.balanceOf(morty.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
         
         // Morty vuelve a comprar un par de entradas mas
         ricknillos.transfer(morty.getPK(), 2d);
@@ -195,7 +195,7 @@ public class App {
         System.out.println("2 entradas mas para Morty: " 
                                 + ricknillos.balanceOf(morty.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         /**
          * A veces, hay reventa ;)
@@ -209,7 +209,7 @@ public class App {
          * @param sender PK
          * @param recipient PK
          * @param cantidad de tokens
-
+        */
 
         System.out.println("\n" + "Reventa de entradas" + "\n" + 
                                   "==================="        );
@@ -219,11 +219,11 @@ public class App {
         System.out.println("Entradas de Morty: " 
                                 + ricknillos.balanceOf(morty.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
         System.out.println("Entradas de Jen: " 
                                 + ricknillos.balanceOf(jen.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         /**
          * Llega el dia del concierto y Rick quiere
@@ -234,7 +234,7 @@ public class App {
          * owners()
          * @return muestra en consola la PublicKey de los compradores
          *         y el numero de tokens que han adquirido
-
+        */
 
         System.out.println("\n" + "Lista de compradores" + "\n" + 
                                   "===================="        );
@@ -246,7 +246,7 @@ public class App {
          * 
          * totalTokensSold()
          * @return numero de tokens (entradas) vendidos
-
+        */
 
         System.out.println("\n" + "Total de asistentes: " 
                                     + ricknillos.totalTokensSold() + "\n");
@@ -267,7 +267,7 @@ public class App {
          * @param cantidad de enZiniums
          * Añade la cantidad de EZi al balance de EZI en
          * la dirección del receptor.
-
+        */
 
         morty.transferEZI(20d);
 
@@ -301,13 +301,8 @@ public class App {
          * Finalmente, la funcion payable() del contrato le envia
          * los enZinium al propietario del contrato (Rick) mediante
          * la funcion transfer() de Address:
-         * 
-         * transferEZI()
-         * @param address del receptor
-         * @param cantidad de enZiniums
-         * Actualiza el balance de EZI en la dirección del receptor
-         * de esos enZiniums
-
+         *
+        */
 
         morty.send(ricknillos, 10d);
 
@@ -315,7 +310,7 @@ public class App {
         System.out.println("Owner: " + rick.getPK().hashCode() + " " 
                                      + ricknillos.balanceOf(rick.getPK())
                                      + " "
-                                     + ricknillos.symbol());
+                                     + ricknillos.getSymbol());
 
         System.out.println("\n" + "Address de Rick" + "\n" + 
                                   "==============="        );
@@ -331,7 +326,7 @@ public class App {
                             "\n => sigue teniendo 5 entradas: " 
                                 + ricknillos.balanceOf(morty.getPK())
                                 + " "
-                                + ricknillos.symbol());
+                                + ricknillos.getSymbol());
 
         System.out.println("\n" + "y Rick no recibe EZI => sigue con 10: " 
                                         + rick.getBalance()
@@ -340,7 +335,7 @@ public class App {
         System.out.println("y Rick sigue con sus 94 entradas: " 
                                             + ricknillos.balanceOf(rick.getPK())
                                             + " "
-                                            + ricknillos.symbol());
-        */
+                                            + ricknillos.getSymbol());
+
     }
 }

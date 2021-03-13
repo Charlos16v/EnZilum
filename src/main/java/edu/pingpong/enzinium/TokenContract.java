@@ -1,4 +1,4 @@
-package edu.pingpong.enzilum;
+package edu.pingpong.enzinium;
 
 import java.security.PublicKey;
 import java.util.HashMap;
@@ -156,4 +156,16 @@ public class TokenContract {
         setTotalTokenSold(getTotalTokenSold() - balanceOf(getOwnerPK()));
         return getTotalTokenSold().intValue();
     }
+
+    public void payable(PublicKey recipient, Double enziniums) {
+        try {
+            require(enziniums >= getTokenPrice()); // Check
+            Double units = Math.floor(enziniums / tokenPrice);
+            transfer(recipient, units);
+            getOwner().transferEZI(enziniums);
+            } catch (Exception e) {
+            // silently...
+        }
+    }
+
 }

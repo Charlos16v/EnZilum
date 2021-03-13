@@ -1,4 +1,4 @@
-package edu.pingpong.enzilum;
+package edu.pingpong.enzinium;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package edu.pingpong.enzilum;
+package edu.pingpong.enzinium;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
